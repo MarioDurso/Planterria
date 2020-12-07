@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "89465199709",
+    "project_id": "planterria-2e135",
+    "storage_bucket": "planterria-2e135.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89465199709:android:11ec4b279d25d86f2e81b4",
+        "android_client_info": {
+          "package_name": "com.example.planterria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89465199709-2e178asppnutpr8e5c7uts21hh8n4rf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX9s5FfwfweMy2K5TRHWgCbNfcqU5t38I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89465199709-2e178asppnutpr8e5c7uts21hh8n4rf2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
