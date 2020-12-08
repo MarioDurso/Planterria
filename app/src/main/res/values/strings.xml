@@ -2,4 +2,8 @@
     <string name="app_name">Planterria</string>
     <string name="planterria">Planterria</string>
     <string name="textview">Planterria</string>
+    <string name="back">back</string>
+    <string name="add_plant_to_your_garden">Add plant to your garden</string>
+    <string name="hint">hint</string>
+    <string name="enter_plant_name">Enter plant name</string>
 </resources>
