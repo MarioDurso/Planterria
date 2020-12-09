@@ -8,12 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
-import static com.example.planterria.database.addPlant;
-import static com.example.planterria.database.getPlant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,17 +21,27 @@ public class MainActivity extends AppCompatActivity {
         //ArrayList<String> test = getPlant("");
 
         //Toast.makeText(MainActivity.this, test.toString(), Toast.LENGTH_LONG).show();
-        addPlant(new plant("tulip","bright", "daily"));
+        //addPlant(new plant("tulip","bright", "daily"));
 
+        configureSearchDatabaseButton();
         configureAddPlantButton();
 
     }
 
-    private void configureAddPlantButton(){
-        Button button = findViewById(R.id.addPlant);
+    private void configureSearchDatabaseButton(){
+        Button button = findViewById(R.id.searchDatabaseButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, addplantActivity.class));
+                startActivity(new Intent(MainActivity.this, searchDatabaseActivity.class));
+            }
+        });
+    }
+
+    private void configureAddPlantButton(){
+        Button button = findViewById(R.id.addPlantButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addPlantActivity.class));
             }
         });
     }

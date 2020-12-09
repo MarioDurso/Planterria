@@ -2,7 +2,6 @@ package com.example.planterria;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,35 +12,34 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
-import static com.example.planterria.database.getPlant;
-
-public class addplantActivity extends AppCompatActivity {
+public class searchDatabaseActivity extends AppCompatActivity {
 EditText nameInput;
-TextView editTV;
+TextView species;
+TextView lightTV;
+TextView waterTV;
+plant foundplant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addplant);
+        setContentView(R.layout.activity_searchdatabase);
         configureBackButton();
 
 
         nameInput = (EditText)findViewById(R.id.nameInput);
-        editTV = (TextView)findViewById(R.id.titleTV);
+        species = (TextView)findViewById(R.id.plantName);
+        lightTV = (TextView)findViewById(R.id.plantLight);
+        waterTV = (TextView)findViewById(R.id.waterInfo);
 
 
 
 
 
-        configureSubmitButton(editTV);
+        configureSubmitButton(species, lightTV, waterTV);
 
     }
 
@@ -55,36 +53,42 @@ TextView editTV;
         });
     }
 
-    private void configureSubmitButton(TextView tv){
+    private void configureSubmitButton(TextView nameTV, TextView lightTV, TextView waterTV){
 
 
         Button button = findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String ok = nameInput.getText().toString();
-                getPlant(ok, tv);
+                getPlant(ok,  nameTV,  lightTV,  waterTV);
 
-                Toast.makeText(addplantActivity.this, ok, Toast.LENGTH_LONG).show();
+                Toast.makeText(searchDatabaseActivity.this, ok, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public static void getPlant(String name, TextView value){
+    public static void getPlant(String name, TextView nameTV, TextView lightTV, TextView waterTV){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("plants").child(name);
+        Query myRef = database.getInstance().getReference("plants")
+                .orderByChild("name")
+                .equalTo(name);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    String name = dataSnapshot.child("name").getValue().toString();
-                    Log.i("name:", name);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        plant p = snapshot.getValue(plant.class);
+                        Log.i("name:", p.toString());
+                        nameTV.setText(p.getName());
+                        lightTV.setText(p.getLightLevel());
+                        waterTV.setText(p.getWaterAmount());
+                    }
 
-                    value.setText(name);
                 }
                 else{
-                    value.setText("Not in Database");
+                    nameTV.setText("Not in Database");
                 }
 
             }
@@ -92,7 +96,7 @@ TextView editTV;
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.i("Wrong:", "Could not find value");
-                value.setText("Not Found");
+                nameTV.setText("Not Found");
 
             }
         });

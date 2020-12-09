@@ -37,4 +37,8 @@ public class plant {
         LightLevel = lightLevel;
         this.waterAmount = waterAmount;
     }
+
+    public plant(){
+
+    }
 }
