@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         configureSearchDatabaseButton();
         configureAddPlantButton();
+        configureViewGardenButton();
 
     }
 
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, addPlantActivity.class));
+            }
+        });
+    }
+
+    private void configureViewGardenButton(){
+        Button button = findViewById(R.id.viewGardenButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, viewHouseGarden.class));
             }
         });
     }
