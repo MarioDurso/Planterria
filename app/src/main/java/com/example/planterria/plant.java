@@ -40,5 +40,14 @@ public class plant {
 
     public plant(){
 
+
+
+    }
+
+    @Override
+    public String toString(){
+        return "Plant name: "+ this.getName() + "\n" +
+                "Plant Light level: "+this.getLightLevel()+ "\n" +
+                "Plant water Frequency: "+this.getPlantWaterFrequency();
     }
 }

@@ -34,7 +34,7 @@ public class viewHouseGarden extends AppCompatActivity {
     public static void getHousePlants(ListView plantList,
                                       Context currentContext) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query myRef = database.getInstance().getReference("HomeGarden");
+        Query myRef = database.getInstance().getReference("HomeGarden").child("indoorPlants");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
 

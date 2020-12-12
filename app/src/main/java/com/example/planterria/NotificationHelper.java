@@ -9,7 +9,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-
+//code from https://codinginflow.com/tutorials/android/alarmmanager
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
     public static final String channelName = "Channel Name";
@@ -34,8 +34,10 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
+                .setContentTitle("Planterria!")
+                .setContentText("You need to water your plants!")
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark);
     }
+
+
 }

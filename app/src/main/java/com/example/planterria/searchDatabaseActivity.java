@@ -2,11 +2,14 @@ package com.example.planterria;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class searchDatabaseActivity extends AppCompatActivity {
 EditText nameInput;
 TextView species;
 TextView lightTV;
 TextView waterTV;
-plant foundplant;
+ListView plantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +39,12 @@ plant foundplant;
         species = (TextView)findViewById(R.id.plantName);
         lightTV = (TextView)findViewById(R.id.plantLight);
         waterTV = (TextView)findViewById(R.id.waterInfo);
+        plantList = (ListView) findViewById(R.id.plantDatabaseListView);
 
 
 
 
-
+        getHousePlants(plantList, this.getApplicationContext());
         configureSubmitButton(species, lightTV, waterTV);
 
     }
@@ -97,6 +103,51 @@ plant foundplant;
             public void onCancelled(DatabaseError databaseError) {
                 Log.i("Wrong:", "Could not find value");
                 nameTV.setText("Not Found");
+
+            }
+        });
+    }
+
+    public static void getHousePlants(ListView plantList,
+                                      Context currentContext) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        Query myRef = database.getInstance().getReference("plants");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ArrayList<plant> listofplants = new ArrayList<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        plant currentHouseplant = snapshot.getValue(plant.class);
+                        listofplants.add(currentHouseplant);
+
+                    }
+
+                    Log.i("houseplantlist", listofplants.toString());
+                    ArrayAdapter<plant> houseplantAdapter = new ArrayAdapter<plant>(currentContext, android.R.layout.simple_list_item_1, listofplants);
+                    plantList.setAdapter(houseplantAdapter);
+
+
+
+                } else {
+                    ArrayList<String> noPlantStringList = new ArrayList<String>();
+                    noPlantStringList.add("No Plants in Garden");
+                    noPlantStringList.add("You can add plants from homepage");
+                    ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(currentContext, android.R.layout.simple_list_item_1, noPlantStringList);
+                    plantList.setAdapter(stringArrayAdapter);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("Wrong:", "Could not find value");
+                // nameTV.setText("Not Found");
+                ArrayList<String> noPlantStringList = new ArrayList<String>();
+                noPlantStringList.add("No Plants in Garden");
+                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(currentContext, android.R.layout.simple_list_item_1, noPlantStringList);
+                plantList.setAdapter(stringArrayAdapter);
 
             }
         });

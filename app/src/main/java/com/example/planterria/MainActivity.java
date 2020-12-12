@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.example.planterria.database.addPlant;
@@ -28,6 +29,7 @@ import static com.example.planterria.database.addPlant;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     int i = 1;
+    public static final int HOMENOTIFICATION = 1111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Toast.makeText(MainActivity.this, test.toString(), Toast.LENGTH_LONG).show();
-        //addPlant(new plant("aloe","bright", waterFrequency.MONTHLY));
+        /*addPlant(new plant("croton","bright", waterFrequency.WEEKLY));
+        addPlant(new plant("orchid","bright", waterFrequency.DAILY));
+        addPlant(new plant("anthurium","bright", waterFrequency.MONTHLY));
+        addPlant(new plant("snake plant","bright", waterFrequency.BIWEEKLY));
+        addPlant(new plant("lilly","bright", waterFrequency.DAILY));
+        addPlant(new plant("majesty palm","bright", waterFrequency.WEEKLY));*/
+
+
+
 
 
 
@@ -107,17 +117,13 @@ public class MainActivity extends AppCompatActivity {
     private void startAlarm(){
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, this.i, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, this.HOMENOTIFICATION, intent, 0);
 
-        long fiveSecondMillis = 1000*(long)(5*i);
+        long fiveSecondMillis = 1000*5;
         long timeBC = Calendar.getInstance().getTimeInMillis();
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,
                 timeBC+fiveSecondMillis,
                 pendingIntent);
-
-        this.i = this.i+1;
-
-
     }
 
 

@@ -2,6 +2,9 @@ package com.example.planterria;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 public class addPlantActivity extends AppCompatActivity {
 EditText plantName;
@@ -90,7 +95,7 @@ TextView validTV;
 
                 }
                 else{
-                    validTV.setText("Not in Database");
+                    validTV.setText("Not valid plant name in Database");
                 }
 
             }
@@ -106,9 +111,32 @@ TextView validTV;
 
     public static void addHousePlant(Houseplant houseplant){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("HomeGarden");
+        DatabaseReference myRef = database.getReference().child("HomeGarden").child("indoorPlants");
         myRef.push().setValue(houseplant);
+
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        DatabaseReference myRef2 = database2.getReference().child("HomeGarden");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int value =  dataSnapshot.child("numberIndoorPlants").getValue(int.class);
+                dataSnapshot.child("numberIndoorPlants").getRef().setValue(value+1);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        };
+        myRef2.addListenerForSingleValueEvent(eventListener);
     }
+
+
+
+
 
 
 }
