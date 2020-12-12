@@ -4,28 +4,45 @@ package com.example.planterria;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
+import static com.example.planterria.database.addPlant;
+
+public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
+    int i = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toast.makeText(MainActivity.this, "works", Toast.LENGTH_LONG).show();
-       // addPlant("rose");
-        //ArrayList<String> test = getPlant("");
 
         //Toast.makeText(MainActivity.this, test.toString(), Toast.LENGTH_LONG).show();
-        //addPlant(new plant("tulip","bright", "daily"));
+        //addPlant(new plant("aloe","bright", waterFrequency.MONTHLY));
+
+
 
         configureSearchDatabaseButton();
         configureAddPlantButton();
         configureViewGardenButton();
+        configureNotifButton();
 
     }
 
@@ -54,6 +71,53 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, viewHouseGarden.class));
             }
         });
+    }
+
+    private void configureNotifButton(){
+        Button button = findViewById(R.id.notifButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startAlarm();
+            }
+        });
+    }
+
+    public void scheduleJob(){
+        ComponentName componentName = new ComponentName(this, updateTimeWateredService.class);
+        JobInfo info = new JobInfo.Builder(123, componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                .setPeriodic(15*60*1000)
+                .build();
+
+        JobScheduler scheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = scheduler.schedule(info);
+        if(resultCode == JobScheduler.RESULT_SUCCESS){
+            Log.d(TAG, "Job Scheduled");
+        }
+        else{
+            Log.d(TAG, "Job Scheduling failed: ");
+        }
+
+    }
+
+    public void cancelJob(){
+
+    }
+
+    private void startAlarm(){
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, this.i, intent, 0);
+
+        long fiveSecondMillis = 1000*(long)(5*i);
+        long timeBC = Calendar.getInstance().getTimeInMillis();
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,
+                timeBC+fiveSecondMillis,
+                pendingIntent);
+
+        this.i = this.i+1;
+
+
     }
 
 

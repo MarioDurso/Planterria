@@ -56,7 +56,7 @@ TextView validTV;
             public void onClick(View v) {
                 getPlant(plantName, plantLocation, plantIdentifer, validTV);
 
-                Toast.makeText(addPlantActivity.this, "yike", Toast.LENGTH_LONG).show();
+                //Toast.makeText(addPlantActivity.this, "", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -77,16 +77,16 @@ TextView validTV;
 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    Houseplant fHp = null;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         plant p = snapshot.getValue(plant.class);
                         Log.i("name:", p.toString());
-                        Houseplant hp = new Houseplant(p,
+                        fHp = new Houseplant(p,
                                 plantLocation.getText().toString(),
                                 plantIdentifer.getText().toString());
-                        addHousePlant(hp);
                         validTV.setText("ADDED");
-
                     }
+                    addHousePlant(fHp);
 
                 }
                 else{
@@ -109,4 +109,6 @@ TextView validTV;
         DatabaseReference myRef = database.getReference().child("HomeGarden");
         myRef.push().setValue(houseplant);
     }
+
+
 }

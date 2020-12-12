@@ -83,7 +83,7 @@ plant foundplant;
                         Log.i("name:", p.toString());
                         nameTV.setText(p.getName());
                         lightTV.setText(p.getLightLevel());
-                        waterTV.setText(p.getWaterAmount());
+                        waterTV.setText(p.getPlantWaterFrequency().toString());
                     }
 
                 }

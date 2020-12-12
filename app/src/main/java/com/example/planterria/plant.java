@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class plant {
     String name;
     String LightLevel;
-    String waterAmount;
+    waterFrequency plantWaterFrequency;
 
     public String getName() {
         return name;
@@ -24,18 +24,18 @@ public class plant {
         LightLevel = lightLevel;
     }
 
-    public String getWaterAmount() {
-        return waterAmount;
+    public waterFrequency getPlantWaterFrequency() {
+        return plantWaterFrequency;
     }
 
-    public void setWaterAmount(String waterAmount) {
-        this.waterAmount = waterAmount;
+    public void setPlantWaterFrequency(waterFrequency plantWaterFrequency) {
+        this.plantWaterFrequency = plantWaterFrequency;
     }
 
-    public plant(String name, String lightLevel, String waterAmount) {
+    public plant(String name, String lightLevel, waterFrequency waterAmount) {
         this.name = name;
         LightLevel = lightLevel;
-        this.waterAmount = waterAmount;
+        this.plantWaterFrequency = waterAmount;
     }
 
     public plant(){

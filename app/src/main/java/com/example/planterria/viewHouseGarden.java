@@ -27,13 +27,7 @@ public class viewHouseGarden extends AppCompatActivity {
         setContentView(R.layout.activity_view_house_garden);
 
         plantList = (ListView) findViewById(R.id.listOfHousePlants);
-
-
-
         getHousePlants(plantList, this.getApplicationContext());
-
-
-
 
     }
 

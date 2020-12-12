@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".addPlantActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addPlantIdentifierInput"
-        android:layout_width="266dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:hint="Enter plant Identrifier"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlantLocationInput" />
-
     <Button
         android:id="@+id/backButton1"
         android:layout_width="wrap_content"
@@ -34,31 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addPlantNameInput"
-        android:layout_width="250dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="93dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:hint="Enter plant name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/addPlantLocationInput"
-        android:layout_width="250dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:hint="Enter plant location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPlantNameInput" />
 
     <Button
         android:id="@+id/addPlantToGardenButton"
@@ -83,9 +44,47 @@
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
         android:layout_marginBottom="41dp"
-        android:text="Plantadd?"
+        android:text="Status"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/addPlantToGardenButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/addPlantForm"
+        android:layout_width="396dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/addPlantDirectionsTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add plant to your garden:"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPlantNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:hint="Enter plant name as listed in database" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPlantIdentifierInput"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:hint="Enter plant Identrifier" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPlantLocationInput"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:hint="Enter plant location" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
