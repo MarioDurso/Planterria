@@ -1,4 +1,6 @@
 # Planterria
+Simple proof of concept android application that sets reminders and pulls from database plant watering times. Also, manages plant status.
+
 Since this is an android application in order to run it you must have android studio installed with a Java SDK of 21 or higher.
 Also, please ensure that you are running this on a machine that has x86 cpu architecture for the android emulator. This is on most commonly used Intel Cpu's.
 To add, to run this application in android studio you need to do make sure you have a suitable android emulator installed in android studio. 
